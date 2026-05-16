@@ -1,14 +1,66 @@
 debugX = true
 
--- Variables will be placed here.
-local toggle = false
--- End variables
+-- Variables Here
+
+local Players = game:GetService("Players")
+
+local CHAM_COLOR = Color3.fromRGB(255, 50, 50)
+local CHAM_OUTLINE = Color3.fromRGB(255, 255, 255)
+local CHAM_FILL_TRANSPARENCY = 0.5
+local CHAM_OUTLINE_TRANSPARENCY = 0
+
+local chamsEnabled = false
+local localPlayer = Players.LocalPlayer
+local highlights = {}
+
+-- big functions here
+
+local function addCham(player)
+	if player == localPlayer or not player.Character then return end
+	local old = player.Character:FindFirstChild("PlayerCham")
+	if old then old:Destroy() end
+	local h = Instance.new("Highlight")
+	h.Name = "PlayerCham"
+	h.Adornee = player.Character
+	h.FillColor = CHAM_COLOR
+	h.OutlineColor = CHAM_OUTLINE
+	h.FillTransparency = CHAM_FILL_TRANSPARENCY
+	h.OutlineTransparency = CHAM_OUTLINE_TRANSPARENCY
+	h.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+	h.Parent = player.Character
+	highlights[player.UserId] = h
+end
+
+local function removeCham(player)
+	highlights[player.UserId] = nil
+	if player.Character then
+		local h = player.Character:FindFirstChild("PlayerCham")
+		if h then h:Destroy() end
+	end
+end
+
+function ToggleChams(state)
+	chamsEnabled = state
+	for _, player in ipairs(Players:GetPlayers()) do
+		if chamsEnabled then addCham(player) else removeCham(player) end
+	end
+end
+
+local function setupPlayer(player)
+	if chamsEnabled then addCham(player) end
+	player.CharacterAdded:Connect(function()
+		task.wait(0.1)
+		highlights[player.UserId] = nil
+		if chamsEnabled then addCham(player) end
+	end)
+end
+
+for _, player in ipairs(Players:GetPlayers()) do setupPlayer(player) end
+Players.PlayerAdded:Connect(setupPlayer)
+Players.PlayerRemoving:Connect(function(player) highlights[player.UserId] = nil end)
 
 getgenv().RAYFIELD_ASSET_ID = 72374703558148
 
--- Functions will be placed here.
-
--- End Function section
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -47,15 +99,11 @@ local MainTab = Window:CreateTab("Main", "anvil")
 
 local ESPSection = MainTab:CreateSection("ESP")
 
-local ChamsButton = MainTab:CreateButton({
+local ChamsToggle = MainTab:CreateToggle({
    Name = "Chams",
-   Callback = function()
-      toggle = not toggle
-      if toggle then
-         print("Chams Enabled")
-      elseif not toggle then
-         print("Chams Disabled")
-      end
+   CurrentValue = false,
+   Callback = function(Value)
+      ToggleChams(Value)
    end,
 })
 
@@ -64,6 +112,7 @@ local OtherTab = Window:CreateTab("Other")
 local DestroyButton = OtherTab:CreateButton({
    Name = "Destroy UI",
    Callback = function()
+      ToggleChams(false)
       Rayfield:Destroy()
    end,
 })
