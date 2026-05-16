@@ -13,24 +13,22 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "First Script",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   Icon = 0,
    LoadingTitle = "Work In Progress",
    LoadingSubtitle = "by outtee",
-   Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+   Theme = "Amethyst",
 
    DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+   DisableBuildWarnings = false,
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = "Native", -- Create a custom folder for your hub/game
+      FolderName = "Native",
       FileName = "config"
    },
 
    Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+      Enabled = false
    },
 
    KeySystem = false, -- Set this to true to use our key system
