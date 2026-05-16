@@ -3,19 +3,19 @@ debugX = true
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
+   Name = "First Script",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "Rayfield Interface Suite",
-   LoadingSubtitle = "by Sirius",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+   LoadingTitle = "Work In Progress",
+   LoadingSubtitle = "by outtee",
+   Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = "Big O", -- Create a custom folder for your hub/game
-      FileName = "O"
+      FolderName = "Native", -- Create a custom folder for your hub/game
+      FileName = "config"
    },
 
    Discord = {
@@ -36,19 +36,22 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
 
-local Section = Tab:CreateSection("Section Example")
+local Section = Tab:CreateSection("ESP")
 
 local Button = Tab:CreateButton({
-   Name = "Button Example",
-   Callback = function()
-   Hello()
-   end,
+   Name = "Chams",
+   Callback = Hello()
 })
 
 Hello = function()
-   print("Hello World!")
+Toggle = !Toggle
+    if Toggle then
+        print("Chams Enabled")
+    elseif not Toggle then
+        print("Chams Disabled")
+    end
 end
 
 Rayfield:LoadConfiguration()
