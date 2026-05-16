@@ -1,5 +1,11 @@
 debugX = true
 
+-- Variables will be placed here.
+local toggle = false
+-- End variables
+
+getgenv().RAYFIELD_ASSET_ID = 72374703558148
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -36,22 +42,29 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
+local MainTab = Window:CreateTab("Main", "anvil")
 
-local Section = Tab:CreateSection("ESP")
+local ESPSection = MainTab:CreateSection("ESP")
 
-local Button = Tab:CreateButton({
+local ChamsButton = MainTab:CreateButton({
    Name = "Chams",
-   Callback = Hello()
+   Callback = function()
+      toggle = not toggle
+      if toggle then
+         print("Chams Enabled")
+      elseif not toggle then
+         print("Chams Disabled")
+      end
+   end,
 })
 
-Hello = function()
-Toggle = !Toggle
-    if Toggle then
-        print("Chams Enabled")
-    elseif not Toggle then
-        print("Chams Disabled")
-    end
-end
+local OtherTab = Window:CreateTab("Other")
+
+local DestroyButton = OtherTab:CreateButton({
+   Name = "Destroy UI",
+   Callback = function()
+      Rayfield:Destroy()
+   end,
+})
 
 Rayfield:LoadConfiguration()
