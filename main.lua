@@ -43,11 +43,11 @@ local Section = Tab:CreateSection("Section Example")
 local Button = Tab:CreateButton({
    Name = "Button Example",
    Callback = function()
-   hello()
+   Hello()
    end,
 })
 
-hello = function()
+Hello = function()
    print("Hello World!")
 end
 
