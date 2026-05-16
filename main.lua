@@ -1,5 +1,17 @@
 debugX = true
 
+-- Functions will be placed here.
+local toggle = False
+local Chams = function()
+    toggle = not toggle
+    if toggle then
+        print("Chams Enabled")
+    elseif not toggle then
+        print("Chams Disabled")
+    end
+end
+
+-- End Function section
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -42,16 +54,7 @@ local Section = Tab:CreateSection("ESP")
 
 local Button = Tab:CreateButton({
    Name = "Chams",
-   Callback = Hello()
+   Callback = Chams()
 })
-
-Hello = function()
-Toggle = !Toggle
-    if Toggle then
-        print("Chams Enabled")
-    elseif not Toggle then
-        print("Chams Disabled")
-    end
-end
 
 Rayfield:LoadConfiguration()
