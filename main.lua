@@ -6,6 +6,9 @@ local toggle = false
 
 getgenv().RAYFIELD_ASSET_ID = 72374703558148
 
+-- Functions will be placed here.
+
+-- End Function section
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
